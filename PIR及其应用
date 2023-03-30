@@ -1,0 +1,19 @@
+## 私有信息查询----Private Information Retrival
+1. PRI场景性问题: 
+  有一个client发送query，有server回复结果。那么在这当中就可以保护:
+  · Server数据的安全性 ----> DB数据的安全性
+  · client query的安全性 ----> Benny提出：是否可以在query场景中保护client query的隐私性？ ----> 基于replicated DB的方案、
+
+2. 场景分类：
+大前提：client向server发送了一个需要保护隐私的查询请求，server向client返回一个query的最终结果。
+  （1）单server场景（单个数据库）&多server场景（分布式数据库）
+       a) 单server场景：一个client对应一个server，client给server发送一条查询语句，server为client回复查询结果。
+        解决方案：才粗加密查询数据，然后交给server去做查询/匹配操作以得到正确的查询结果。
+        例如：全同态加密的SealPIR。
+        在这当中，所有的PIR协议都基于一个问题：我们不可能构造一个单DB PIR协议满足unconditional security
+       b) 多server场景：一个client对应多个分布式数据库。client将要查询的数据x拆分成多个语句（query_1...query_n）发送给各个server。并将接收到的每个answer合并得到最终的查询结果。
+        两个关键的假设：
+          · 数据库是replicated的，每个数据库都持有相同的数据集。
+          · 数据库中存在non-colluding的假设，server之间存在不可共谋的假设
+          
+      
